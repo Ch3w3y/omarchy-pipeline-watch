@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "id": "daryn.pipeline-watch",
+  "name": "Pipeline Watch",
+  "version": "1.0.0",
+  "author": "daryn",
+  "license": "MIT",
+  "description": "Monitors active Python/R training jobs, Quarto renders, and data pipelines with live CPU/RAM stats and desktop completion alerts.",
+  "kinds": [
+    "bar-widget"
+  ],
+  "entryPoints": {
+    "barWidget": "BarWidget.qml"
+  },
+  "barWidget": {
+    "displayName": "Pipeline Watch",
+    "description": "Data Science pipeline & training process watcher with completion notifications and sleep inhibitor",
+    "category": "Development",
+    "allowMultiple": false
+  }
+}
