@@ -200,9 +200,18 @@ def update_tracking_and_history(current_jobs):
     return history
 
 def kill_process(pid):
+    # os.kill() reads non-positive pids as broadcasts, not as a process: 0 hits
+    # the whole process group and -1 hits every process this user is allowed to
+    # signal. Either one takes the session down, so only a real pid gets through.
     try:
-        os.kill(int(pid), 9)
-        return {"status": "ok", "message": f"Killed PID {pid}"}
+        target = int(pid)
+    except (TypeError, ValueError):
+        return {"error": f"Invalid PID: {pid}"}
+    if target <= 0:
+        return {"error": f"Refusing to signal PID {target}"}
+    try:
+        os.kill(target, 9)
+        return {"status": "ok", "message": f"Killed PID {target}"}
     except Exception as e:
         return {"error": str(e)}
 
